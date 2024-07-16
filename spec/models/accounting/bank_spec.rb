@@ -9,12 +9,8 @@ RSpec.describe Accounting::Bank, type: :model do # rubocop:disable Metrics/Block
     it { should validate_presence_of(:routing_number) }
     it { should validate_presence_of(:swift_code) }
     it { should validate_presence_of(:website) }
-    # TODO: not sure why when turning the values into uppercase in the model
-    # breaks the tests xd
-    # it { should validate_uniqueness_of(:country_code) }
-    # it { should validate_uniqueness_of(:city_code) }
     it { should validate_uniqueness_of(:routing_number) }
-    # it { should validate_uniqueness_of(:swift_code) }
+    it { should validate_uniqueness_of(:swift_code) }
 
     it { should validate_length_of(:country_code).is_equal_to(3) }
     it { should validate_length_of(:city_code).is_equal_to(3) }
