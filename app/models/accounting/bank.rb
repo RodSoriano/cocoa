@@ -13,7 +13,7 @@ module Accounting
 
     validates :name, :country_code, :city_code, :routing_number, :swift_code, :website,
               presence: true
-    validates :country_code, :city_code, :swift_code, uniqueness: { case_sensitive: true }
+    validates :swift_code, uniqueness: { case_sensitive: true }
     validates :routing_number, uniqueness: true
     validates :country_code, :city_code, length: { is: 3 }
     validates :routing_number, length: { in: 9..12 }
@@ -24,15 +24,14 @@ module Accounting
     validates :swift_code, format: { with: SWIFT_CODE_REGEX }
     validates :website, format: { with: URL_REGEX }
 
-    # Callbacks
     before_validation :upcase_country_and_city_code
 
     private
 
     def upcase_country_and_city_code
-      self.country_code = country_code.upcase if country_code.present?
-      self.city_code = city_code.upcase if city_code.present?
-      self.swift_code = swift_code.upcase if swift_code.present?
+      country_code.upcase if country_code.present?
+      city_code.upcase if city_code.present?
+      swift_code.upcase if swift_code.present?
     end
   end
 end
